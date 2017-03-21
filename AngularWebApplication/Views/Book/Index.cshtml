@@ -16,18 +16,22 @@
     <h2>@ViewData["Title"].</h2>
     <h3>@ViewData["Message"]</h3>
 
-    <p>Use this area to provide additional information.</p>
-
     <h1>Status: {{status}}</h1>
 
-    Search: <input ng-model="query" />
+    <p>Use this area to filter results.</p>
 
-    <ul>
-        <li ng-repeat="book in Books | filter:{name:query}">
-            <span>{{book.name}}</span>
-            <p>{{book.author}}</p>
-        </li>
-    </ul>
+    <label>Any: <input ng-model="search.$"></label><br />
+    <label>Name only <input ng-model="search.name"></label><br />
+    <label>Author only <input ng-model="search.author"></label><br />
+    <label>Equality <input type="checkbox" ng-model="strict"></label><br />
+    <br />
+    <table id="searchObjResults">
+        <tr><th>Name</th><th>Author</th></tr>
+        <tr ng-repeat="book in Books | filter:search:strict">
+            <td>{{book.name}}</td>
+            <td>{{book.author}}</td>
+        </tr>
+    </table>
 
 </body>
 </html>
