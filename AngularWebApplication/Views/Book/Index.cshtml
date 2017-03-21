@@ -18,11 +18,12 @@
 
     <p>Use this area to provide additional information.</p>
 
-    <input type="text" ng-model="hello"/>
-    <h1>{{hello}}</h1>
+    <h1>Status: {{status}}</h1>
+
+    Search: <input ng-model="query" />
 
     <ul>
-        <li ng-repeat="book in Books">
+        <li ng-repeat="book in Books | filter:{name:query}">
             <span>{{book.name}}</span>
             <p>{{book.author}}</p>
         </li>
