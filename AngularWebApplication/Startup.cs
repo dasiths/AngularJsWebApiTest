@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace AngularWebAPI
+namespace AngularWebApplication
 {
     public class Startup
     {
@@ -28,8 +28,7 @@ namespace AngularWebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddCors();
-            services.AddMvc();            
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,8 +37,24 @@ namespace AngularWebAPI
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseCors(builder => builder.WithOrigins("*").AllowAnyOrigin().AllowAnyMethod());
-            app.UseMvc();
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
+
+            app.UseStaticFiles();
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Book}/{action=Index}/{id?}");
+            });
         }
     }
 }
