@@ -24,49 +24,81 @@
     <div class="body-content">
         <h3>@ViewData["Message"]</h3>
 
-        <table id="tblCRUD" class="table-bordered">
-            <tbody>
-                <tr>
-                    <td>
-                        <span>Book ID</span>
-                    </td>
-                    <td>
-                        <input type="text" id="bno" readonly="readonly" ng-model="BookId" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <span>Name</span>
-                    </td>
-                    <td>
-                        <input type="text" id="bname" required="" ng-model="BookName">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <span>Author</span>
-                    </td>
-                    <td>
-                        <input type="text" id="bauthor" required="" ng-model="BookAuthor">
-                    </td>
-                </tr>
+        <table>
+            <tr>
+                <td>
+                    <table id="searchObjResults" class="table-striped table-hover" width="600">
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Author</th>
+                            <th></th>
+                        </tr>
+                        <tr ng-repeat="book in Books | filter:search:strict">
+                            <td>{{book.id}}</td>
+                            <td>{{book.name}}</td>
+                            <td>{{book.author}}</td>
+                            <td>
+                                <button type="button" class="btn" ng-click="get(book)">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <button type="button" class="btn" id="new" value="New" ng-click="clear()">
+                        <span class="glyphicon glyphicon-plus"></span> New
+                    </button>
+                    <br />
+                    <br />
+                    <table id="tblCRUD" class="table" width="500">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span>Book ID</span>
+                                </td>
+                                <td>
+                                    <input type="text" id="bno" readonly="readonly" ng-model="BookId" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>Name</span>
+                                </td>
+                                <td>
+                                    <input type="text" id="bname" required="" ng-model="BookName">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>Author</span>
+                                </td>
+                                <td>
+                                    <input type="text" id="bauthor" required="" ng-model="BookAuthor">
+                                </td>
+                            </tr>
 
-                <tr>
-                    <td>
-                        <input type="button" id="new" value="New" ng-click="clear()">
-                    </td>
-                    <td>
-                        <input type="button" id="save" value="Save" ng-click="save()">
-                    </td>
-                    <td>
-                        <input type="button" id="delete" value="Delete" ng-click="delete()">
-                    </td>
-                </tr>
-            </tbody>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <button type="button" class="btn-success" id="save" value="Save" ng-click="save()">
+                                        <span class="glyphicon glyphicon-save"></span> Save
+                                    </button>
+                                    <button type="button" class="btn-danger" id="delete" value="Delete" ng-click="delete()">
+                                        <span class="glyphicon glyphicon-remove"></span> Delete
+                                    </button>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
         </table>
 
-        <br /><br />
-        <label class="label-info">Status: {{status}}</label>
+        <br />
+        <label ng-class="statusClass">Status: {{status}}</label><br /><br />
 
         <p>Use this area to filter results.</p>
 
@@ -76,20 +108,7 @@
         <label>Equality <input type="checkbox" ng-model="strict"></label><br />
         <br />
 
-        <table id="searchObjResults" class="table-striped table-hover" width="600">
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Author</th>
-                <th></th>
-            </tr>
-            <tr ng-repeat="book in Books | filter:search:strict">
-                <td>{{book.id}}</td>
-                <td>{{book.name}}</td>
-                <td>{{book.author}}</td>
-                <td><button ng-click="get(book)">Edit</button></td>
-            </tr>
-        </table>
+
     </div>
 </body>
 </html>

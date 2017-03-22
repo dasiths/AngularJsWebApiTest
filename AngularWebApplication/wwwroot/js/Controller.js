@@ -2,6 +2,7 @@
 // <reference path="Service.js">
 
 app.controller('BookListController', function BookListController($scope, $http, crudService) {
+    $scope.statusClass = 'label-info';
     $scope.status = 'Loading books...';
     $scope.IsNewRecord = 1; //The flag for the new record
 
@@ -15,10 +16,12 @@ app.controller('BookListController', function BookListController($scope, $http, 
             function (response) {
                 $scope.Books = response.data;
                 $scope.status = 'Loaded. Code: ' + response.status;
+                $scope.statusClass = 'label-success';
             },
             function (error) {
                 $scope.Books = null;
                 $scope.status = 'Error: ' + error;
+                $scope.statusClass = 'label-warning';
                 $log.error('failure loading Books', error);
             });
     }
@@ -45,9 +48,11 @@ app.controller('BookListController', function BookListController($scope, $http, 
             var promisePut = crudService.put($scope.BookId, Book);
             promisePut.then(function (result) {
                 $scope.status = "Updated Successfuly";
+                $scope.statusClass = 'label-success';
                 loadAllBooks();
             }, function (error) {
                 $scope.status = 'Error: ' + error;
+                $scope.statusClass = 'label-warning';
                 console.log("Err" + error);
             });
         }
@@ -59,6 +64,7 @@ app.controller('BookListController', function BookListController($scope, $http, 
         var promiseDelete = crudService.delete($scope.BookId);
         promiseDelete.then(function (result) {
             $scope.status = "Deleted Successfuly";
+            $scope.statusClass = 'label-success';
             $scope.BookId = 0;
             $scope.BookName = "";
             $scope.BookAuthor = "";
@@ -66,6 +72,7 @@ app.controller('BookListController', function BookListController($scope, $http, 
             loadAllBooks();
         }, function (error) {
             $scope.status = 'Error: ' + error;
+            $scope.statusClass = 'label-warning';
             console.log("Err" + error);
         });
     }
@@ -89,6 +96,7 @@ app.controller('BookListController', function BookListController($scope, $http, 
 
     //Clear the Scope models
     $scope.clear = function () {
+        $scope.statusClass = 'label-info';
         $scope.status = "";
         $scope.IsNewRecord = 1;
         $scope.BookId = 0;
