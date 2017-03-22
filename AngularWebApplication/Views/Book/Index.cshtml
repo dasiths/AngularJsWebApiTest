@@ -3,35 +3,49 @@
 }
 
 <!DOCTYPE html>
-<script src="~/lib/angular/angular.js"></script>
-<script src="~/js/app.js"></script>
-
 <html ng-app="booksApp">
 <head>
     <title>@ViewData["Title"]</title>
+
+    <script src="~/lib/angular/angular.js"></script>
+
+    <script src="~/js/Module.js"></script>
+    <script src="~/js/Service.js"></script>
+    <script src="~/js/Controller.js"></script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 </head>
 
 <body ng-controller="BookListController">
+    <div class="body-content">
+        <h3>@ViewData["Message"]</h3>
 
-    <h2>@ViewData["Title"].</h2>
-    <h3>@ViewData["Message"]</h3>
+        <label class="label-info">Status: {{status}}</label>
 
-    <h1>Status: {{status}}</h1>
+        <p>Use this area to filter results.</p>
 
-    <p>Use this area to filter results.</p>
+        <label>Any: <input ng-model="search.$"></label><br />
+        <label>Name only <input ng-model="search.name"></label><br />
+        <label>Author only <input ng-model="search.author"></label><br />
+        <label>Equality <input type="checkbox" ng-model="strict"></label><br />
+        <br />
 
-    <label>Any: <input ng-model="search.$"></label><br />
-    <label>Name only <input ng-model="search.name"></label><br />
-    <label>Author only <input ng-model="search.author"></label><br />
-    <label>Equality <input type="checkbox" ng-model="strict"></label><br />
-    <br />
-    <table id="searchObjResults">
-        <tr><th>Name</th><th>Author</th></tr>
-        <tr ng-repeat="book in Books | filter:search:strict">
-            <td>{{book.name}}</td>
-            <td>{{book.author}}</td>
-        </tr>
-    </table>
-
+        <table id="searchObjResults" class="table-striped table-hover" width="600">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Author</th>
+            </tr>
+            <tr ng-repeat="book in Books | filter:search:strict">
+                <td>{{book.id}}</td>
+                <td>{{book.name}}</td>
+                <td>{{book.author}}</td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>

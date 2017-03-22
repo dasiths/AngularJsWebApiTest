@@ -10,7 +10,7 @@ namespace AngularWebApplication.Controllers
     {
         public IActionResult Index()
         {
-            ViewData["Message"] = "Show All Books";
+            ViewData["Message"] = "Book Example";
             return View();
         }
     }

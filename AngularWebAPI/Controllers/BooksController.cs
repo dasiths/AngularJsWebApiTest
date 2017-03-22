@@ -63,9 +63,19 @@ namespace AngularWebAPI.Controllers
 
         }
 
-        // POST api/books/id
-        [HttpPost("{id}")]
-        public IActionResult Post(int id, [FromBody] Book b)
+        // POST api/books
+        [HttpPost]
+        public IActionResult Post([FromBody] Book b)
+        {
+            if (ModelState.IsValid == false)
+                return BadRequest();
+
+            return Ok(_repo.AddBook(b));
+        }
+
+        // PUT api/books/id
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] Book b)
         {
 
             if (ModelState.IsValid == false || id != b.Id)
