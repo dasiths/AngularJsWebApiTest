@@ -91,7 +91,7 @@ namespace AngularWebAPI.Controllers
         }
 
         // DELETE api/books/id
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             _repo.DeleteBook(id);

@@ -41,7 +41,11 @@ namespace AngularWebAPI
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseCors(builder => builder.WithOrigins("*").AllowAnyOrigin().AllowAnyMethod());
+            app.UseCors(builder => builder.WithOrigins("*")
+                                                    .AllowAnyOrigin()
+                                                    .AllowAnyMethod()
+                                                    .AllowAnyHeader());
+
             app.UseMvc();
         }
     }

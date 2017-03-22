@@ -24,6 +24,47 @@
     <div class="body-content">
         <h3>@ViewData["Message"]</h3>
 
+        <table id="tblCRUD" class="table-bordered">
+            <tbody>
+                <tr>
+                    <td>
+                        <span>Book ID</span>
+                    </td>
+                    <td>
+                        <input type="text" id="bno" readonly="readonly" ng-model="BookId" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Name</span>
+                    </td>
+                    <td>
+                        <input type="text" id="bname" required="" ng-model="BookName">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Author</span>
+                    </td>
+                    <td>
+                        <input type="text" id="bauthor" required="" ng-model="BookAuthor">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <input type="button" id="new" value="New" ng-click="clear()">
+                    </td>
+                    <td>
+                        <input type="button" id="save" value="Save" ng-click="save()">
+                    </td>
+                    <td>
+                        <input type="button" id="delete" value="Delete" ng-click="delete()">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
         <label class="label-info">Status: {{status}}</label>
 
         <p>Use this area to filter results.</p>
@@ -39,11 +80,13 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Author</th>
+                <th></th>
             </tr>
             <tr ng-repeat="book in Books | filter:search:strict">
                 <td>{{book.id}}</td>
                 <td>{{book.name}}</td>
                 <td>{{book.author}}</td>
+                <td><button ng-click="get(book)">Edit</button></td>
             </tr>
         </table>
     </div>

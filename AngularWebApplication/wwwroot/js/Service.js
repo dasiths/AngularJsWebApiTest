@@ -1,6 +1,8 @@
-﻿app.service('crudService', function ($http) {
+﻿// <reference path="Module.js">
 
-    var baseUrl = 'http://localhost:50829/'
+app.service('crudService', function ($http) {
+
+    var baseUrl = 'http://localhost:50829'
 
     //Create new record
     this.post = function (Book) {
