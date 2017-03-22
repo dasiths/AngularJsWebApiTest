@@ -25,15 +25,67 @@ namespace AngularWebAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_repo.GetAllBooks());
+            var result = _repo.GetAllBooks();
+
+            if (result.Count() > 0)
+                return Ok(result);
+            else
+                return NoContent();
         }
 
-        // GET api/books/5
-        [HttpGet("{name}")]
+        // GET api/books/id
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            var result = _repo.GetAllBooks().SingleOrDefault(o => o.Id == id);
+
+            if (result == null)
+                return NoContent();
+            else
+                return Ok(result);
+        }
+
+        // GET api/books/q=query
+        [HttpGet("q={name}")]
         public IActionResult Get(string name)
         {
-            return Ok(_repo.GetAllBooks().Where(
-                o => o.Name.IndexOf(name, 0, StringComparison.OrdinalIgnoreCase) > 0).ToList());
+            var results = _repo.GetAllBooks().Where(
+                o => o.Name.IndexOf(name, 0, StringComparison.OrdinalIgnoreCase) >= 0);
+
+            if (results.Count() > 0)
+            {
+                return Ok(results);
+            }
+            else
+            {
+                return NoContent();
+            }
+
+        }
+
+        // POST api/books/id
+        [HttpPost("{id}")]
+        public IActionResult Post(int id, [FromBody] Book b)
+        {
+
+            if (ModelState.IsValid == false || id != b.Id)
+                return BadRequest();
+
+            var result = _repo.GetAllBooks().SingleOrDefault(o => o.Id == id);
+            if (result == null)
+                return NotFound();
+
+            _repo.UpdateBook(b);
+
+            return Ok(id);
+        }
+
+        // DELETE api/books/id
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            _repo.DeleteBook(id);
+            return Ok(id);
         }
 
     }
