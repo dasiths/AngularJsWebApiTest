@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AngularWebAPI.Models;
 using Microsoft.AspNetCore.Cors;
+using AngularWebAPI.Repository;
 
 namespace AngularWebAPI.Controllers
 {
@@ -13,27 +14,25 @@ namespace AngularWebAPI.Controllers
     public class BooksController : Controller
     {
 
-        private List<Book> _books = new List<Book>();
+        BookRepository _repo;
 
-        public BooksController()
+        public BooksController(BookRepository repo)
         {
-            _books.Add(new Book() { Name = "Book ABC", Author = "Author ABC" });
-            _books.Add(new Book() { Name = "Book XYZ", Author = "Author XYZ" });
-            _books.Add(new Book() { Name = "Book 123", Author = "Author 123" });
+            _repo = repo;
         }
 
         // GET api/books
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_books);
+            return Ok(_repo.GetAllBooks());
         }
 
         // GET api/books/5
         [HttpGet("{name}")]
         public IActionResult Get(string name)
         {
-            return Ok(_books.Where(
+            return Ok(_repo.GetAllBooks().Where(
                 o => o.Name.IndexOf(name, 0, StringComparison.OrdinalIgnoreCase) > 0).ToList());
         }
 

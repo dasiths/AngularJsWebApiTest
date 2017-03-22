@@ -29,7 +29,10 @@ namespace AngularWebAPI
         {
             // Add framework services.
             services.AddCors();
-            services.AddMvc();            
+            services.AddMvc();
+
+            //Add our repository as a singleton
+            services.AddSingleton<Repository.BookRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
