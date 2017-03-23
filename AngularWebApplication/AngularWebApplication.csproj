@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\BookTemplate.html" />
     <Content Include="wwwroot\js\Controller.js" />
     <Content Include="wwwroot\js\Module.js" />
     <Content Include="wwwroot\js\Service.js" />

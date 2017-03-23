@@ -28,11 +28,7 @@
             <tr>
                 <td>
                     <table id="searchObjResults" class="table-striped table-hover" width="600">
-                        <tr>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Author</th>
-                            <th></th>
+                        <tr my-Booktableheader>                            
                         </tr>
                         <tr ng-repeat="book in Books | filter:search:strict">
                             <td>{{book.id}}</td>

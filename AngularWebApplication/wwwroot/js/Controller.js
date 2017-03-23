@@ -105,4 +105,8 @@ app.controller('BookListController', function BookListController($scope, $http, 
     }
 
 
+}).directive('myBooktableheader', function () {
+    return {
+        templateUrl: 'http://localhost:51836/BookTemplate.html'
+    };
 });
