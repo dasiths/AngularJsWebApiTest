@@ -70,7 +70,15 @@ namespace AngularWebAPI.Controllers
             if (ModelState.IsValid == false)
                 return BadRequest();
 
-            return Ok(_repo.AddBook(b));
+            try
+            {
+                return Ok(_repo.AddBook(b));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
         // PUT api/books/id
@@ -85,17 +93,30 @@ namespace AngularWebAPI.Controllers
             if (result == null)
                 return NotFound();
 
-            _repo.UpdateBook(b);
-
-            return Ok(id);
+            try
+            {
+                _repo.UpdateBook(b);
+                return Ok(id);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // DELETE api/books/id
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _repo.DeleteBook(id);
-            return Ok(id);
+            try
+            {
+                _repo.DeleteBook(id);
+                return Ok(id);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
     }

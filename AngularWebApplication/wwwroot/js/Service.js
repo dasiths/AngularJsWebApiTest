@@ -2,7 +2,7 @@
 
 app.service('crudService', function ($http) {
 
-    var baseUrl = 'http://localhost:50829'
+    var baseUrl = 'http://localhost:50829';
 
     //Create new record
     this.post = function (Book) {
@@ -13,6 +13,7 @@ app.service('crudService', function ($http) {
         });
         return request;
     }
+
     //Get Single Records
     this.get = function (Id) {
         return $http.get(baseUrl + "/api/books/" + Id);
