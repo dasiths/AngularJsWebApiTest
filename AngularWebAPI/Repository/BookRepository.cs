@@ -30,7 +30,7 @@ namespace AngularWebAPI.Repository
 
         public int AddBook(Book b)
         {
-            b.Id = _books.Count + 1;
+            b.Id = _books.Max(o=> o.Id) + 1;
             _books.Add(b);
 
             return b.Id;
